@@ -16,7 +16,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_14_133951) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
-    t.string "members"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -27,10 +26,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_14_133951) do
     t.string "wishlist"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.bigint "group_id"
     t.index ["group_id"], name: "index_people_on_group_id"
-    t.index ["user_id"], name: "index_people_on_user_id"
   end
 
   add_foreign_key "people", "groups"
