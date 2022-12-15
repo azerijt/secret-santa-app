@@ -4,13 +4,8 @@
     <%= form.label :name, style: "display: block" %>
     <%= form.text_field :name %>
   </div>
-
-  <div>
-    <%= form.label :wishlist, style: "display: block" %>
-    <%= form.text_field :wishlist %>
-  </div>
   
-  <%= form.hidden_field :group_id %>
+  <%= form.hidden_field :group_id, value: @group.id %>
   <div>
   <%= form.submit %>
   </div>
