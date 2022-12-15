@@ -5,7 +5,12 @@
   </p>
    <p>
     <strong>Members:</strong>
-    <%= group.people %>
+    <ul>
+    <%= group.people.each do |person| %>
+    <li><%= person.name %>
+    </li>
+    <% end %>
+    </ul>
    </p>
 
 </div>

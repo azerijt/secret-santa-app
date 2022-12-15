@@ -1,6 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
 <%= render @group %>
+<%= render 'people/form',locals: { person: @person } %>
+
 
 <div>
   <%= link_to "Edit this group", edit_group_path(@group) %> |

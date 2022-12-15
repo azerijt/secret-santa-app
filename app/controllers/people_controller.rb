@@ -1,4 +1,4 @@
-class Groups::PeopleController < ApplicationController
+class PeopleController < ApplicationController
   before_action :set_person, only: %i[ show edit update destroy ]
   before_action :set_group, only: %i[ show new edit create update destroy ]
   # GET /people or /people.json 
@@ -12,7 +12,7 @@ class Groups::PeopleController < ApplicationController
 
   # GET /people/new
   def new
-    @person = Person.new
+    @person = Person.new(group_id: @group_id)
   end
 
   # GET /people/1/edit
@@ -26,7 +26,7 @@ class Groups::PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to person_url(@person), notice: "Person was successfully created." }
+        format.html { redirect_to group_person_url(@person), notice: "Person was successfully created." }
         format.json { render :show, status: :created, location: @person }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class Groups::PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to person_url(@person), notice: "Person was successfully updated." }
+        format.html { redirect_to group_person_url(@person), notice: "Person was successfully updated." }
         format.json { render :show, status: :ok, location: @person }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,7 +53,7 @@ class Groups::PeopleController < ApplicationController
     @person.destroy
 
     respond_to do |format|
-      format.html { redirect_to people_url, notice: "Person was successfully destroyed." }
+      format.html { redirect_to group_people_url, notice: "Person was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -61,7 +61,7 @@ class Groups::PeopleController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person
-      @person = Person.find(params[:id])
+      @person = Person.find(params[:group_id])
     end
 
     def set_group
@@ -70,6 +70,6 @@ class Groups::PeopleController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def person_params
-      params.require(:person).permit(:name, :recipient, :wishlist)
+      params.require(:person, group_attributes: :group_id).permit(:name, :recipient, :wishlist)
     end
 end
